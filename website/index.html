@@ -33,13 +33,15 @@
     <h1>simple-daemon</h1>
     <div id="version" class="clickable" onclick='document.location = "http://rubyforge.org/projects/simple-daemon"; return false'>
       <p>Get Version</p>
-      <a href="http://rubyforge.org/projects/simple-daemon" class="numbers">0.0.2</a>
+      <a href="http://rubyforge.org/projects/simple-daemon" class="numbers">0.0.3</a>
     </div>
     <h1>&#x2192; &#8216;simple-daemon&#8217;</h1>
 
 
-	<h2>What
-SimpleDaemon is a lightweight daemon module for Ruby. Use it to add daemon functionality to your Ruby script.</h2>
+	<h2>What</h2>
+
+
+	<p>SimpleDaemon is a lightweight daemon module for Ruby. Use it to add daemon functionality to your Ruby script.</p>
 
 
 	<h2>Installing</h2>
@@ -47,19 +49,33 @@ SimpleDaemon is a lightweight daemon module for Ruby. Use it to add daemon funct
 
 <pre syntax="ruby">sudo gem install simple-daemon</pre>
 
-	<h2>The basics</h2>
-
-
 	<h2>Demonstration of usage</h2>
 
+
+<pre syntax="ruby">
+
+class Processor &lt; SimpleDaemon::Base
+  SimpleDaemon::WorkingDirectory = "#{RAILS_ROOT}/log" 
+
+  def self.start
+    loop do  
+      # loop through some process
+    end
+  end
+
+  def self.stop
+    puts "Stopping processor  " 
+  end
+end
+
+PdfGenerator.daemonize
+
+</pre>
 
 	<h2>Forum</h2>
 
 
 	<p><a href="http://groups.google.com/group/simple-daemon">http://groups.google.com/group/simple-daemon</a></p>
-
-
-	<p><span class="caps">TODO</span> &#8211; create Google Group &#8211; simple-daemon</p>
 
 
 	<h2>How to submit patches</h2>
@@ -80,9 +96,9 @@ SimpleDaemon is a lightweight daemon module for Ruby. Use it to add daemon funct
 	<h2>Contact</h2>
 
 
-	<p>Comments are welcome. Send an email to <a href="mailto:FIXME"><span class="caps">FIXME</span> full name</a> email.</p>
+	<p>Comments are welcome. Send an email to <a href="mailto:simple-daemon@googlegroups.com">simple-daemon@googlegroups.com</a>.</p>
     <p class="coda">
-      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 7th July 2007<br>
+      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 8th July 2007<br>
       Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
     </p>
 </div>

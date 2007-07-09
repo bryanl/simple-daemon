@@ -1,3 +1,0 @@
-README for simple-daemon
-========================
-

@@ -2,11 +2,14 @@ require 'simple-daemon/version'
 require 'fileutils'
 
 module SimpleDaemon
-  WorkingDirectory = File.expand_path(File.dirname(__FILE__))  
-
   class Base
+    
+    def self.classname
+      name
+    end
+    
     def self.pid_fn
-      File.join(WorkingDirectory, "#{name}.pid")
+      File.join(SimpleDaemon::WorkingDirectory, "#{name}.pid")
     end
     
     def self.daemonize
@@ -45,14 +48,16 @@ module SimpleDaemon
         Process.setsid
         exit if fork
         PidFile.store(daemon, Process.pid)
-        Dir.chdir WorkingDirectory
+        Dir.chdir SimpleDaemon::WorkingDirectory
         File.umask 0000
+        log = File.new("#{daemon.classname}.log", "a")
         STDIN.reopen "/dev/null"
-        STDOUT.reopen "/dev/null", "a"
+        STDOUT.reopen log
         STDERR.reopen STDOUT
         trap("TERM") {daemon.stop; exit}
         daemon.start
       end
+      puts "Daemon started."
     end
   
     def self.stop(daemon)
@@ -63,6 +68,8 @@ module SimpleDaemon
       pid = PidFile.recall(daemon)
       FileUtils.rm(daemon.pid_fn)
       pid && Process.kill("TERM", pid)
+    rescue Errno::ESRCH
+      puts "Pid file found, but process was not running. The daemon may have died."
     end
   end
 end

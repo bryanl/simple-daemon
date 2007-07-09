@@ -2,26 +2,39 @@ h1. simple-daemon
 
 h1. &#x2192; 'simple-daemon'
 
-
 h2. What
+
 SimpleDaemon is a lightweight daemon module for Ruby. Use it to add daemon functionality to your Ruby script.
 
 h2. Installing
 
 <pre syntax="ruby">sudo gem install simple-daemon</pre>
 
-h2. The basics
-
-
 h2. Demonstration of usage
 
+<pre syntax="ruby">
 
+class Processor < SimpleDaemon::Base
+  SimpleDaemon::WorkingDirectory = "#{RAILS_ROOT}/log"
+  
+  def self.start
+    loop do  
+      # loop through some process
+    end
+  end
+
+  def self.stop
+    puts "Stopping processor  "
+  end
+end
+
+PdfGenerator.daemonize
+
+</pre>
 
 h2. Forum
 
 "http://groups.google.com/group/simple-daemon":http://groups.google.com/group/simple-daemon
-
-TODO - create Google Group - simple-daemon
 
 h2. How to submit patches
 
@@ -35,4 +48,4 @@ This code is free to use under the terms of the MIT license.
 
 h2. Contact
 
-Comments are welcome. Send an email to "FIXME full name":mailto:FIXME email.
+Comments are welcome. Send an email to "simple-daemon@googlegroups.com":mailto:simple-daemon@googlegroups.com.
