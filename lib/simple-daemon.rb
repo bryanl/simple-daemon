@@ -5,11 +5,11 @@ module SimpleDaemon
   class Base
     
     def self.classname
-      name
+      name.split("::").last
     end
     
     def self.pid_fn
-      File.join(SimpleDaemon::WorkingDirectory, "#{name}.pid")
+      File.join(SimpleDaemon::WORKING_DIRECTORY, "#{classname}.pid")
     end
     
     def self.daemonize
@@ -48,7 +48,7 @@ module SimpleDaemon
         Process.setsid
         exit if fork
         PidFile.store(daemon, Process.pid)
-        Dir.chdir SimpleDaemon::WorkingDirectory
+        Dir.chdir SimpleDaemon::WORKING_DIRECTORY
         File.umask 0000
         log = File.new("#{daemon.classname}.log", "a")
         STDIN.reopen "/dev/null"

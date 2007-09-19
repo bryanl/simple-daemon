@@ -33,7 +33,7 @@
     <h1>simple-daemon</h1>
     <div id="version" class="clickable" onclick='document.location = "http://rubyforge.org/projects/simple-daemon"; return false'>
       <p>Get Version</p>
-      <a href="http://rubyforge.org/projects/simple-daemon" class="numbers">0.0.3</a>
+      <a href="http://rubyforge.org/projects/simple-daemon" class="numbers">0.1.2</a>
     </div>
     <h1>&#x2192; &#8216;simple-daemon&#8217;</h1>
 
@@ -44,12 +44,12 @@
 	<p>SimpleDaemon is a lightweight daemon module for Ruby. Use it to add daemon functionality to your Ruby script.</p>
 
 
-	<h2>Installing</h2>
+	<h2>Installation</h2>
 
 
 <pre syntax="ruby">sudo gem install simple-daemon</pre>
 
-	<h2>Demonstration of usage</h2>
+	<h2>Example</h2>
 
 
 <pre syntax="ruby">
@@ -68,7 +68,7 @@ class Processor &lt; SimpleDaemon::Base
   end
 end
 
-PdfGenerator.daemonize
+Processor.daemonize
 
 </pre>
 
@@ -96,9 +96,12 @@ PdfGenerator.daemonize
 	<h2>Contact</h2>
 
 
+	<p>Thanks to Sharon Rosner for the original module. simple-daemon is substantially his code, with a few improvements (and the gem packaging) by Jon Dahl of <a href="http://slantwisedesign.com">Slantwise Design</a> and <a href="http://railspikes.com">Railspikes</a> (blog).</p>
+
+
 	<p>Comments are welcome. Send an email to <a href="mailto:simple-daemon@googlegroups.com">simple-daemon@googlegroups.com</a>.</p>
     <p class="coda">
-      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 8th July 2007<br>
+      <a href="mailto:drnicwilliams@gmail.com">Dr Nic</a>, 9th July 2007<br>
       Theme extended from <a href="http://rb2js.rubyforge.org/">Paul Battley</a>
     </p>
 </div>

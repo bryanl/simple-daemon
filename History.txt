@@ -1,3 +1,20 @@
+== 0.1.2 2007-07-08
+
+* 2 minor enhancements:
+  * Renamed WorkingDirectory constant to WORKING_DIRECTORY
+  * Renamed logfile and PIDfile to ignore namespacing 
+      (e.g. log/Job.pid, not log/Foo::Job.pid)
+
+== 0.1.1 2007-07-08
+
+* 1 minor enhancements:
+  * Documentation fix
+
+== 0.1.0 2007-07-08
+
+* 1 minor enhancements:
+  * Documentation and website
+
 == 0.0.3 2007-07-08
 
 * 1 major enhancement:
