@@ -3,30 +3,40 @@ require 'fileutils'
 
 module SimpleDaemon
   class Base
-    
-    def self.classname
-      name.split("::").last
+
+    def self.classname      
+      underscore(name.split("::").last)
     end
-    
+
     def self.pid_fn
       File.join(SimpleDaemon::WORKING_DIRECTORY, "#{classname}.pid")
     end
-    
+
     def self.daemonize
       Controller.daemonize(self)
     end
+
+    private
+
+    def underscore(camel_cased_word)
+      camel_cased_word.to_s.
+      gsub(/([A-Z]+)([A-Z][a-z])/,'\1_\2').
+      gsub(/([a-z\d])([A-Z])/,'\1_\2').
+      tr("-", "_").
+      downcase
+    end
   end
-  
+
   module PidFile
     def self.store(daemon, pid)
       File.open(daemon.pid_fn, 'w') {|f| f << pid}
     end
-    
+
     def self.recall(daemon)
       IO.read(daemon.pid_fn).to_i rescue nil
     end
   end
-  
+
   module Controller
     def self.daemonize(daemon)
       case !ARGV.empty? && ARGV[0]
@@ -42,7 +52,7 @@ module SimpleDaemon
         exit
       end
     end
-    
+
     def self.start(daemon)
       fork do
         Process.setsid
@@ -59,7 +69,7 @@ module SimpleDaemon
       end
       puts "Daemon started."
     end
-  
+
     def self.stop(daemon)
       if !File.file?(daemon.pid_fn)
         puts "Pid file not found. Is the daemon started?"
