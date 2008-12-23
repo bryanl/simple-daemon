@@ -57,6 +57,10 @@ module SimpleDaemon
       fork do
         Process.setsid
         exit if fork
+        if File.file?(daemon.pid_fn)
+          puts "Pid file #{daemon.pid_fn} already exists.  Not starting."
+          exit 1
+        end
         PidFile.store(daemon, Process.pid)
         Dir.chdir SimpleDaemon::WORKING_DIRECTORY
         File.umask 0000

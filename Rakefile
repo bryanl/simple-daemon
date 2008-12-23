@@ -86,6 +86,15 @@ CHANGES = hoe.paragraphs_of('History.txt', 0..1).join("\n\n")
 PATH    = (RUBYFORGE_PROJECT == GEM_NAME) ? RUBYFORGE_PROJECT : "#{RUBYFORGE_PROJECT}/#{GEM_NAME}"
 hoe.remote_rdoc_dir = File.join(PATH.gsub(/^#{RUBYFORGE_PROJECT}\/?/,''), 'rdoc')
 
+desc 'Generate updated gemspec with unique version, which will cause gem to be auto-built on github.'
+task :update_gemspec do
+  spec = hoe.spec
+  spec.version = VERS + '.' + Time.now.strftime('%Y%m%d%H%M%S')
+  File.open('simple-daemon.gemspec', 'w') do |output|
+    output << spec.to_ruby
+  end
+end
+
 desc 'Generate website files'
 task :website_generate do
   Dir['website/**/*.txt'].each do |txt|
